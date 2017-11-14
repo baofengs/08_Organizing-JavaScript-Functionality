@@ -1,15 +1,16 @@
 $(document).ready(function() {
-  // gwiazka znaczy, znajdź jakikolwiek atrybut z taką właściowścią
-  // $("[red='js-controls'] > [rel*='js-register']")
-  // można też tak:
-  $("[rel*='js-register'], [rel*='js-login]")
-  $("[rel*='js-register']")
+
+  var $modal = $("[rel='js-modal']");
 
   $("[rel='js-controls']").on('click', "[rel*='js-']", function(e) {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
-    console.log('asddasds');
+    
+    var url = $(e.target).attr('href');
+    console.log(url);
+    $.ajax(url, {dataType: 'text'}).then(function(contents){
+      $modal.html(contents).show();
+    });
   });
-
 });
