@@ -35,8 +35,7 @@ $(document).ready(function(){
 	var position = 0;
 	var maxPosition = (itemsWidth - contentWidth);
 
-	// attach click handlers for the `$left` and `$right` buttons,
-	// that call the `scrollLeft(..)` and `scrollRight(..)` functions,
-	// respectively
+	$left.on('click', scrollLeft);
+	$right.on('click', scrollRight);
 
 });
