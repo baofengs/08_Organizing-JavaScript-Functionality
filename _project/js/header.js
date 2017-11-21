@@ -1,15 +1,27 @@
-$(document).ready(function() {
+var Header = (function() {
 
-  var $modal = $("[rel='js-modal']");
+  var $modal;
 
-  $("[rel='js-header'] > [rel='js-controls']").on('click', "[rel*='js-']", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    
-    var url = $(e.target).attr('href');
-    $.ajax(url, {dataType: 'text'}).then(function(contents){
-      $modal.html(contents).show();
-    });
-  });
-});
+  function headerLinkCLicks(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      
+      var url = $(e.target).attr('href');
+      $.ajax(url, {dataType: 'text'}).then(function(contents){
+        $modal.html(contents).show();
+      });
+  }
+
+  function init() {
+    $modal = $("[rel='js-modal']");
+    $("[rel='js-header'] > [rel='js-controls']").on('click', "[rel*='js-']", headerLinkCLicks);
+  }
+
+  return {
+    init: init,
+  }
+
+})();
+
+$(document).ready(Header.init);
