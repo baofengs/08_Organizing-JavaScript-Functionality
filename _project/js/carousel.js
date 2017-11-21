@@ -1,4 +1,30 @@
-$(document).ready(function(){
+var Carousel = (function(){
+	
+	var $content;
+	var $items;
+	var $left;
+	var $right;
+
+	var position;
+	var maxPosition;
+	var itemsWidth;
+	var contentWidth;
+	
+	function init() {
+		$content = $("[rel=js-carousel] > [rel=js-content]");
+		$items = $content.children("[rel=js-items]");
+		$left = $("[rel=js-carousel] > [rel=js-controls] > [rel=js-left]");
+		$right = $("[rel=js-carousel] > [rel=js-controls] > [rel=js-right]");
+
+
+		contentWidth = $content.width();
+		itemsWidth = $items.width();
+		position = 0;
+		maxPosition = (itemsWidth - contentWidth);
+		
+		$left.on('click', scrollLeft);
+		$right.on('click', scrollRight);
+	}
 
 	function scrollLeft(evt) {
 		evt.preventDefault();
@@ -24,18 +50,9 @@ $(document).ready(function(){
 		$items.css({ left: (-position) + "px" });
 	}
 
-	var $content = $("[rel=js-carousel] > [rel=js-content]");
-	var $items = $content.children("[rel=js-items]");
-	var $left = $("[rel=js-carousel] > [rel=js-controls] > [rel=js-left]");
-	var $right = $("[rel=js-carousel] > [rel=js-controls] > [rel=js-right]");
+	return {
+		init: init
+	}
+})();
 
-
-	var contentWidth = $content.width();
-	var itemsWidth = $items.width();
-	var position = 0;
-	var maxPosition = (itemsWidth - contentWidth);
-
-	$left.on('click', scrollLeft);
-	$right.on('click', scrollRight);
-
-});
+$(document).ready(Carousel.init);
