@@ -1,7 +1,18 @@
 $(document).ready(function(){
 
+	function personClicked(evt) {
+		var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
+		
+		$.ajax("details/" + ID + ".html", { dataType: "text" })
+			.then(function(contents){
+				$content.html(contents);
+			});
+	}
+
 	var $items = $("[rel=js-carousel] > [rel=js-content] > [rel=js-items]");
 	var $content = $("[rel=js-details]");
+
+	$items.on('click', "[rel*='js-item-']", personClicked);
 
 	// on click of a carousel item, do an Ajax request for
 	// the "details/2.html" (or whatever) file for the person
