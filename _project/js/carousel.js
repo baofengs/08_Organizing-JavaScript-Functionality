@@ -24,6 +24,12 @@ var Carousel = (function(){
 		
 		$left.on('click', scrollLeft);
 		$right.on('click', scrollRight);
+		$items.on('click', "[rel*='js-item-']", clickPerson);
+	}
+
+	function clickPerson(evt) {
+		var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
+		Details.loadPerson(ID);
 	}
 
 	function scrollLeft(evt) {
@@ -51,7 +57,7 @@ var Carousel = (function(){
 	}
 
 	return {
-		init: init
+		init: init,
 	}
 })();
 
