@@ -29,7 +29,7 @@ var Carousel = (function(){
 
 	function clickPerson(evt) {
 		var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
-		Details.loadPerson(ID);
+		EVT.emit("person-selected", ID);
 	}
 
 	function scrollLeft(evt) {
