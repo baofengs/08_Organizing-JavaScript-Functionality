@@ -2,8 +2,18 @@ var Details = (function(){
 
 	var $content;
 
+	function selectPerson(evt) {
+		evt.preventDefault();
+		var ID = $(evt.target).attr("data-person");
+		// loadPerson(ID);
+		EVT.emit("person-selected", ID);
+	}
+
 	function init() {
 		$content = $("[rel=js-details]");
+
+		$content.on('click', "[rel='js-select-person']", selectPerson);
+
 		EVT.on("person-selected", loadPerson);
 	}
 	
@@ -13,6 +23,8 @@ var Details = (function(){
 				$content.html(contents);
 			});
 	}
+
+	EVT.on("init", init);
 	
 	return {
 		init: init,

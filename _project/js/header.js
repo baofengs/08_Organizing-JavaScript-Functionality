@@ -18,6 +18,8 @@ var Header = (function() {
     $("[rel='js-header'] > [rel='js-controls']").on('click', "[rel*='js-']", headerLinkCLicks);
   }
 
+  EVT.on("init", init);
+
   return {
     init: init,
   }

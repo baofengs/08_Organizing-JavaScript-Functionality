@@ -56,6 +56,16 @@ var Carousel = (function(){
 		$items.css({ left: (-position) + "px" });
 	}
 
+	function setSelectedPerson(ID) {
+		position = 185;
+		$items.css({ left: (-position * ID) + "px" });
+		$("[rel*='js-item-']").css({border: 'none'});
+		$("[rel='js-item-" + ID + "']").css({border: '1px solid black'})
+	}
+
+	EVT.on('init', init);
+	EVT.on('person-selected', setSelectedPerson);
+	
 	return {
 		init: init,
 	}
