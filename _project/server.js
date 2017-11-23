@@ -7,7 +7,6 @@
 var
 	// config constants
 	PROD = (process.env.NODE_ENV === "production"),
-	SECUREPHRASE_SITE = "http://localhost:8050",
 	ROOT_DIR = global.ROOT_DIR = __dirname,
 
 	// node modules
@@ -31,10 +30,7 @@ var
 	Pages,
 	View,
 	Request,
-	RandomIntegers,
-	WordList,
-	RandomPhrase,
-	API,
+	// Foo,
 
 	routes = []
 ;
@@ -67,10 +63,9 @@ global.Events = Events = new EventEmitter2({
 global.Pages = Pages = require(path.join(__dirname,"web","js","Pages.js"));
 global.View = View = require(path.join(__dirname,"web","js","View.js"));
 global.Request = Request = require(path.join(__dirname,"web","js","Request.js"));
-global.RandomIntegers = RandomIntegers = require(path.join(__dirname,"web","js","RandomIntegers.js"));
-global.WordList = WordList = require(path.join(__dirname,"web","js","WordList.js"));
-global.RandomPhrase = RandomPhrase = require(path.join(__dirname,"web","js","RandomPhrase.js"));
-global.API = API = require(path.join(__dirname,"web","js","API.js"));
+
+//global.Foo = Foo = require(path.join(__dirname,"web","js","Foo.js"));
+
 
 // load/initialize templates
 loadTemplates(path.join(__dirname,"web","js","Tmpls.js"));
@@ -99,19 +94,6 @@ routes.push(
 	}
 );
 
-// routes.push(
-// 	// perform hostname/protocol redirects?
-// 	function canonicalRedirect(req,res) {
-// 		if (
-// 			req.headers["host"] === "www.securephrase.io" ||
-// 			req.headers["x-forwarded-proto"] !== "https"
-// 		) {
-// 			res.writeHead(301, { Location: SECUREPHRASE_SITE });
-// 			res.end();
-// 			return true;
-// 		}
-// 	}
-// );
 
 routes.push(
 	// ensure security headers for all responses
@@ -187,67 +169,6 @@ routes.push(
 					.val(function pageHTML(url,html) {
 						res.writeHead(200,{ "Content-type": "text/html; charset=UTF-8" });
 						res.end(html);
-						done(true);
-					})
-					.or(done.fail);
-				});
-		}
-	}
-);
-
-routes.push(
-	// generate-phrase POST fallback?
-	function generatePhraseFallback(req,res) {
-		if (req.method === "POST" && req.url == "/") {
-			var data = url_parser.parse("/?" + req.body,true).query;
-
-			data.wordCount = data.level;
-			data.localRandom = data.localized;
-
-			return ASQ(function ASQ(done){
-					API.generate(data)
-					.seq(function result(phrase) {
-						return View.getPageHTML("/",{
-								phrase_results: [ phrase ]
-							});
-					})
-					.val(function pageHTML(url,html){
-						res.writeHead(200,{
-							"Content-type": "text/html; charset=UTF-8",
-							"Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
-							"Pragma": "no-cache",
-							"Expires": "Thu, 01 Dec 1994 16:00:00 GMT"
-						});
-						res.end(html);
-						done(true);
-					})
-					.or(done.fail);
-				});
-		}
-	}
-);
-
-routes.push(
-	// api request?
-	function api(req,res) {
-		if (
-			req.method === "GET" &&
-			/^\/api\/generate/.test(req.url)
-		) {
-			var data = url_parser.parse(req.url,true).query;
-
-			return ASQ(function ASQ(done){
-					API.generate(data)
-					.val(function result(phrase) {
-						res.writeHead(200,{
-							"Content-type": "application/json; charset=UTF-8",
-							"Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
-							"Pragma": "no-cache",
-							"Expires": "Thu, 01 Dec 1994 16:00:00 GMT"
-						});
-						res.end(JSON.stringify({
-							phrase: phrase
-						}));
 						done(true);
 					})
 					.or(done.fail);

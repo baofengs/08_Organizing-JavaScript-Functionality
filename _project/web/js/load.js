@@ -26,10 +26,6 @@
 	})
 
 	.script("/js/Request.js")
-	.script("/js/RandomIntegers.js")
-	.script("/js/WordList.js")
-	.script("/js/RandomPhrase.js")
-	.script("/js/API.js")
 	.script("/js/Notify.js")
 	.script("/js/Tmpls.js")
 	.wait()

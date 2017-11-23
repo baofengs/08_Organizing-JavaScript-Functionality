@@ -1,6 +1,6 @@
 "use strict";
 
-exports.SERVER_NAME = "securephrase";
+exports.SERVER_NAME = "coolawesome";
 
 exports.SERVER_ADDR = "127.0.0.1";
 exports.SERVER_PORT = 8050;
