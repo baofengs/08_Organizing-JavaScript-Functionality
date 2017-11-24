@@ -32,6 +32,8 @@
 
 	.script("/js/Pages.js")
 	.script("/js/View.js")
+	.script("/js/Foo.js")
+	.script("/js/Validate.js")
 	.wait()
 
 	.script("/js/site.js");

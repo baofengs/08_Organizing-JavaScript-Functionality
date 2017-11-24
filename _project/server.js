@@ -30,7 +30,8 @@ var
 	Pages,
 	View,
 	Request,
-	// Foo,
+	Foo,
+	Validate,
 
 	routes = []
 ;
@@ -64,7 +65,8 @@ global.Pages = Pages = require(path.join(__dirname,"web","js","Pages.js"));
 global.View = View = require(path.join(__dirname,"web","js","View.js"));
 global.Request = Request = require(path.join(__dirname,"web","js","Request.js"));
 
-//global.Foo = Foo = require(path.join(__dirname,"web","js","Foo.js"));
+global.Foo = Foo = require(path.join(__dirname,"web","js","Foo.js"));
+global.Validate = Validate = require(path.join(__dirname,"web","js","Validate.js"));
 
 
 // load/initialize templates
@@ -173,6 +175,32 @@ routes.push(
 					})
 					.or(done.fail);
 				});
+		}
+	}
+);
+
+routes.push(
+	// Foo API call?
+	function FooRoute(req,res) {
+		if (/^\/Foo/.test(req.url)) {
+			var data = url_parser.parse(req.url,true).query;
+
+			if (Validate.checkMinMax(data.min,data.max)) {
+				var num = Foo.random(data.min,data.max);
+
+				res.writeHead(200, {"Content-Type":"application/json"} );
+				res.end( JSON.stringify({
+					answer: num
+				}) );
+			}
+			else {
+				res.writeHead(200, {"Content-Type":"application/json"} );
+				res.end( JSON.stringify({
+					error: "failed"
+				}) );
+			}
+
+			return true;
 		}
 	}
 );

@@ -1,8 +1,0 @@
-[11/23/2017, 2:11:24 PM] NOTICE(templates): Loaded.
-[11/24/2017, 2:33:26 PM] NOTICE(templates): Loaded.
-[11/24/2017, 2:38:25 PM] NOTICE(templates): Loaded.
-[11/24/2017, 4:54:41 PM] NOTICE(templates): Loaded.
-[11/24/2017, 4:56:59 PM] NOTICE(templates): Loaded.
-[11/24/2017, 4:58:04 PM] NOTICE(templates): Loaded.
-[11/24/2017, 4:58:58 PM] NOTICE(templates): Loaded.
-[11/24/2017, 5:00:36 PM] NOTICE(templates): Loaded.

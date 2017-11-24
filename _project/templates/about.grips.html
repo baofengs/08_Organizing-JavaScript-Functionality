@@ -7,7 +7,13 @@
 
 	<h1>About</h1>
 	<p>
-		{$partial "#stuff" $}
+		<input rel="js-min"> : <input rel="js-max"><br>
+
+		<input type="checkbox" rel="js-local" id="local" checked> <label for="local">Local</label><br>
+		<input type="button" value="gimme" rel="js-gimme">
+	</p>
+	<p>
+		{$partial "#answer" $}
 	</p>
 
 </div>
@@ -15,7 +21,11 @@
 {$}
 
 
-{$define "#stuff" }
-	Node.js is awesome!
+{$define "#answer" }
+	<div rel="js-answer">
+		{$insert $.answer $}
+	</div>
 {$}
+
+
 
