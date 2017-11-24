@@ -7,4 +7,13 @@
  * 
  * FOREVER:
  * https://www.npmjs.com/package/forever
+ * 
+ * aby uruchomić shell-owy plik: 
+ * ./server.sh
+ * 
+ * lista uruchomionych procesów w tle:
+ * forever list
+ * 
+ * zatrzymanie procesu:
+ * forever stop <id>
  */
